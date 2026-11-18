@@ -22,7 +22,7 @@ public class EmailService {
     private final String remetente;
 
     public EmailService(ObjectProvider<JavaMailSender> mailSender,
-                        @Value("${spring.mail.username:no-reply@moedaestudantil.local}") String remetente) {
+                        @Value("${app.mail.from}") String remetente) {
         this.mailSender = mailSender;
         this.remetente = remetente;
     }

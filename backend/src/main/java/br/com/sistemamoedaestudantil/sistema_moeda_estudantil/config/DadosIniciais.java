@@ -5,11 +5,13 @@ import br.com.sistemamoedaestudantil.sistema_moeda_estudantil.model.Professor;
 import br.com.sistemamoedaestudantil.sistema_moeda_estudantil.repository.InstituicaoRepository;
 import br.com.sistemamoedaestudantil.sistema_moeda_estudantil.repository.ProfessorRepository;
 import br.com.sistemamoedaestudantil.sistema_moeda_estudantil.repository.UsuarioRepository;
+import jakarta.persistence.EntityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -31,19 +33,24 @@ public class DadosIniciais implements CommandLineRunner {
     private final InstituicaoRepository instituicaoRepository;
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
+    private final EntityManager entityManager;
 
     public DadosIniciais(ProfessorRepository professorRepository,
                          InstituicaoRepository instituicaoRepository,
                          UsuarioRepository usuarioRepository,
-                         PasswordEncoder passwordEncoder) {
+                         PasswordEncoder passwordEncoder,
+                         EntityManager entityManager) {
         this.professorRepository = professorRepository;
         this.instituicaoRepository = instituicaoRepository;
         this.usuarioRepository = usuarioRepository;
         this.passwordEncoder = passwordEncoder;
+        this.entityManager = entityManager;
     }
 
     @Override
+    @Transactional
     public void run(String... args) {
+        semearInstituicoes();
         if (professorRepository.count() > 0) {
             return;
         }
@@ -67,5 +74,17 @@ public class DadosIniciais implements CommandLineRunner {
             professorRepository.save(professor);
         }
         LOG.info("Professores iniciais criados (senha padrão: {}).", SENHA_PADRAO);
+    }
+
+    private void semearInstituicoes() {
+        entityManager.createNativeQuery(
+                "INSERT IGNORE INTO instituicao_ensino (id, nome) VALUES "
+                        + "('11111111-1111-4111-8111-111111111111', 'PUC Minas'), "
+                        + "('22222222-2222-4222-8222-222222222222', 'Instituição Exemplo')").executeUpdate();
+        entityManager.createNativeQuery(
+                "INSERT IGNORE INTO curso (id, nome, instituicao_id) VALUES "
+                        + "('33333333-3333-4333-8333-333333333333', 'Engenharia de Software', '11111111-1111-4111-8111-111111111111'), "
+                        + "('44444444-4444-4444-8444-444444444444', 'Ciência da Computação', '11111111-1111-4111-8111-111111111111'), "
+                        + "('55555555-5555-4555-8555-555555555555', 'Sistemas de Informação', '22222222-2222-4222-8222-222222222222')").executeUpdate();
     }
 }
