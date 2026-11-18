@@ -209,7 +209,7 @@ Diagramas UML em preto e branco, com fonte Mermaid (`.mmd`) e imagens `.svg` e `
 | Consultar extrato do aluno | ![Consultar extrato do aluno](docs/diagramas-sequencia/03-consultar-extrato-aluno.png) |
 | Cadastrar empresa parceira | ![Cadastrar empresa parceira](docs/diagramas-sequencia/04-cadastrar-empresa-parceira.png) |
 | Autenticar usuário | ![Autenticar usuário](docs/diagramas-sequencia/05-autenticar-usuario.png) |
-| Enviar moedas | ![Enviar moedas](docs/diagramas-sequencia/06-enviar-moedas.png) |
+| Enviar moedas | ![Enviar moe![img.png](img.png)das](docs/diagramas-sequencia/06-enviar-moedas.png) |
 | Consultar extrato do professor | ![Consultar extrato do professor](docs/diagramas-sequencia/07-consultar-extrato-professor.png) |
 | Cadastrar aluno | ![Cadastrar aluno](docs/diagramas-sequencia/08-cadastrar-aluno.png) |
 
