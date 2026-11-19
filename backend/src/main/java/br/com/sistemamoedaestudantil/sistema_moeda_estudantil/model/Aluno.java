@@ -33,4 +33,5 @@ public class Aluno extends Usuario {
   return Transacao.resgate(this,vantagem,codigo);
  }
  @Override public String getNomeExibicao(){return nome;}
+ @Override public Perfil getPerfil(){return Perfil.ALUNO;}
 }

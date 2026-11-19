@@ -101,4 +101,9 @@ public class Professor extends Usuario {
     public String getNomeExibicao() {
         return nome;
     }
+
+    @Override
+    public Perfil getPerfil() {
+        return Perfil.PROFESSOR;
+    }
 }
